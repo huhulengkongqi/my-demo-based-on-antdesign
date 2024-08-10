@@ -415,6 +415,42 @@ const info = options => {
         ],
         actionList: null,
         dataAccess: null
+      },
+      {
+        roleId: 'admin',
+        permissionId: 'new',
+        permissionName: '新页面管理',
+        actions:
+          '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
+        actionEntitySet: [
+          {
+            action: 'add',
+            describe: '新增',
+            defaultCheck: false
+          },
+          {
+            action: 'get',
+            describe: '详情',
+            defaultCheck: false
+          },
+          {
+            action: 'query',
+            describe: '查询',
+            defaultCheck: false
+          },
+          {
+            action: 'update',
+            describe: '修改',
+            defaultCheck: false
+          },
+          {
+            action: 'delete',
+            describe: '删除',
+            defaultCheck: false
+          }
+        ],
+        actionList: null,
+        dataAccess: null
       }
     ]
   }

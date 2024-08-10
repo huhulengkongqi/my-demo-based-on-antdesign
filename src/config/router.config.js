@@ -267,6 +267,37 @@ export const asyncRouterMap = [
             ]
           }
         ]
+      },
+
+      // new
+      {
+        path: '/new',
+        name: 'newpage',
+        redirect: '/new/page1',
+        component: RouteView,
+        meta: { title: 'menu.new', icon: bxAnaalyse, permission: ['new'] },
+        children: [
+          {
+            path: '/new/page1',
+            name: 'page1',
+            component: () => import('@/views/new/page1.vue'),
+            meta: { title: 'menu.new.page1', permission: ['new'] }
+          }
+        ]
+        // children: [
+        //   {
+        //     path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
+        //     name: 'Analysis',
+        //     component: () => import('@/views/dashboard/Analysis'),
+        //     meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
+        //   },
+        //   {
+        //     path: '/dashboard/workplace',
+        //     name: 'Workplace',
+        //     component: () => import('@/views/dashboard/Workplace'),
+        //     meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: ['dashboard'] }
+        //   }
+        // ]
       }
 
       // other
