@@ -1,8 +1,9 @@
 import Mock from 'mockjs2'
-import { builder } from '../util'
+import { builder, getBody } from '../util'
 
 const info = options => {
-  console.log('options', options)
+  const body = getBody(options)
+  console.log('mock: body', body)
   const userInfo = {
     id: '4291d7da9005377ec9aec4a71ea837f',
     name: '天野远子',
@@ -21,7 +22,7 @@ const info = options => {
     role: {}
   }
   // role
-  const roleObj = {
+  const adminroleObj = {
     id: 'admin',
     name: '管理员',
     describe: '拥有所有权限',
@@ -418,8 +419,8 @@ const info = options => {
       },
       {
         roleId: 'admin',
-        permissionId: 'new',
-        permissionName: '新页面管理',
+        permissionId: 'usermanagement',
+        permissionName: '用户管理',
         actions:
           '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
         actionEntitySet: [
@@ -455,49 +456,49 @@ const info = options => {
     ]
   }
 
-  roleObj.permissions.push({
-    roleId: 'admin',
-    permissionId: 'support',
-    permissionName: '超级模块',
-    actions:
-      '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"import","defaultCheck":false,"describe":"导入"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"},{"action":"export","defaultCheck":false,"describe":"导出"}]',
-    actionEntitySet: [
-      {
-        action: 'add',
-        describe: '新增',
-        defaultCheck: false
-      },
-      {
-        action: 'import',
-        describe: '导入',
-        defaultCheck: false
-      },
-      {
-        action: 'get',
-        describe: '详情',
-        defaultCheck: false
-      },
-      {
-        action: 'update',
-        describe: '修改',
-        defaultCheck: false
-      },
-      {
-        action: 'delete',
-        describe: '删除',
-        defaultCheck: false
-      },
-      {
-        action: 'export',
-        describe: '导出',
-        defaultCheck: false
-      }
-    ],
-    actionList: null,
-    dataAccess: null
-  })
+  // roleObj.permissions.push({
+  //   roleId: 'admin',
+  //   permissionId: 'support',
+  //   permissionName: '超级模块',
+  //   actions:
+  //     '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"import","defaultCheck":false,"describe":"导入"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"},{"action":"export","defaultCheck":false,"describe":"导出"}]',
+  //   actionEntitySet: [
+  //     {
+  //       action: 'add',
+  //       describe: '新增',
+  //       defaultCheck: false
+  //     },
+  //     {
+  //       action: 'import',
+  //       describe: '导入',
+  //       defaultCheck: false
+  //     },
+  //     {
+  //       action: 'get',
+  //       describe: '详情',
+  //       defaultCheck: false
+  //     },
+  //     {
+  //       action: 'update',
+  //       describe: '修改',
+  //       defaultCheck: false
+  //     },
+  //     {
+  //       action: 'delete',
+  //       describe: '删除',
+  //       defaultCheck: false
+  //     },
+  //     {
+  //       action: 'export',
+  //       describe: '导出',
+  //       defaultCheck: false
+  //     }
+  //   ],
+  //   actionList: null,
+  //   dataAccess: null
+  // })
 
-  userInfo.role = roleObj
+  userInfo.role = adminroleObj
   return builder(userInfo)
 }
 
@@ -887,6 +888,37 @@ const userNav = options => {
         show: false
       },
       component: 'NotificationSettings'
+    },
+    // usermanagement
+    {
+      name: 'usermanagement',
+      parentId: 0,
+      id: 10035,
+      meta: {
+        title: 'menu.usermanagement',
+        show: true
+      },
+      component: 'RouteView'
+    },
+    {
+      name: 'newpage',
+      parentId: 10035,
+      id: 10036,
+      meta: {
+        title: 'menu.usermanagement.page1',
+        show: true
+      },
+      component: 'page1'
+    },
+    {
+      name: 'userlist',
+      parentId: 10035,
+      id: 10037,
+      meta: {
+        title: 'menu.usermanagement.userlist',
+        show: true
+      },
+      component: 'RoleList'
     }
   ]
   const json = builder(nav)

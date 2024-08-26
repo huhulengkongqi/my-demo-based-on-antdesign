@@ -36,6 +36,7 @@ export default {
     'menu.account.settings': '个人设置',
     'menu.account.trigger': '触发报错',
     'menu.account.logout': '退出登录',
-    'menu.new': '新页面',
-    'menu.new.page1': '新页面1'
+    'menu.usermanagement': '用户管理',
+    'menu.usermanagement.page1': '新页面1',
+    'menu.usermanagement.userlist': '用户列表'
 }

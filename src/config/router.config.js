@@ -271,17 +271,23 @@ export const asyncRouterMap = [
 
       // new
       {
-        path: '/new',
-        name: 'newpage',
-        redirect: '/new/page1',
+        path: '/usermanagement',
+        name: 'userManagement',
+        redirect: '/usermanagement/page1',
         component: RouteView,
-        meta: { title: 'menu.new', icon: bxAnaalyse, permission: ['new'] },
+        meta: { title: 'menu.usermanagement', icon: bxAnaalyse, permission: ['usermanagement'] },
         children: [
           {
-            path: '/new/page1',
+            path: '/usermanagement/page1',
             name: 'page1',
-            component: () => import('@/views/new/page1.vue'),
-            meta: { title: 'menu.new.page1', permission: ['new'] }
+            component: () => import('@/views/usermanagement/page1.vue'),
+            meta: { title: 'menu.usermanagement.page1', permission: ['usermanagement'] }
+          },
+          {
+            path: '/usermanagement/userlist',
+            name: 'userlist',
+            component: () => import('@/views/usermanagement/RoleList.vue'),
+            meta: { title: 'menu.usermanagement.userlist', permission: ['usermanagement'] }
           }
         ]
         // children: [
