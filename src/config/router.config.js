@@ -273,21 +273,27 @@ export const asyncRouterMap = [
       {
         path: '/usermanagement',
         name: 'userManagement',
-        redirect: '/usermanagement/page1',
+        redirect: '/usermanagement/userlist',
         component: RouteView,
         meta: { title: 'menu.usermanagement', icon: bxAnaalyse, permission: ['usermanagement'] },
         children: [
-          {
-            path: '/usermanagement/page1',
-            name: 'page1',
-            component: () => import('@/views/usermanagement/page1.vue'),
-            meta: { title: 'menu.usermanagement.page1', permission: ['usermanagement'] }
-          },
           {
             path: '/usermanagement/userlist',
             name: 'userlist',
             component: () => import('@/views/usermanagement/RoleList.vue'),
             meta: { title: 'menu.usermanagement.userlist', permission: ['usermanagement'] }
+          },
+          {
+            path: '/usermanagement/groupmanagement',
+            name: 'groupmanagement',
+            component: () => import('@/views/usermanagement/groupmanagement.vue'),
+            meta: { title: 'menu.usermanagement.groupmanagement', permission: ['usermanagement'] }
+          },
+          {
+            path: '/usermanagement/grouppermission',
+            name: 'grouppermission',
+            component: () => import('@/views/usermanagement/grouppermission.vue'),
+            meta: { title: 'menu.usermanagement.grouppermission', permission: ['usermanagement'] }
           }
         ]
         // children: [

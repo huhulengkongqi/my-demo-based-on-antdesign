@@ -901,11 +901,11 @@ const userNav = options => {
       component: 'RouteView'
     },
     {
-      name: 'newpage',
+      name: 'groupmanagement',
       parentId: 10035,
       id: 10036,
       meta: {
-        title: 'menu.usermanagement.page1',
+        title: 'menu.usermanagement.groupmanagement',
         show: true
       },
       component: 'page1'
@@ -919,6 +919,16 @@ const userNav = options => {
         show: true
       },
       component: 'RoleList'
+    },
+    {
+      name: 'grouppermission',
+      parentId: 10035,
+      id: 10038,
+      meta: {
+        title: 'menu.usermanagement.grouppermission',
+        show: true
+      },
+      component: 'grouppermission'
     }
   ]
   const json = builder(nav)

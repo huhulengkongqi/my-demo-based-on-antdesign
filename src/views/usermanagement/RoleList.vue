@@ -1,85 +1,72 @@
 <template>
-  <a-list class="demo-loadmore-list" :loading="initLoading" item-layout="horizontal" :data-source="list">
-    <template #loadMore>
+  <a-card :loading="loading" :bordered="false" :body-style="{ padding: '10px' }">
+    <div style="margin-bottom: 16px;">
+      <a-input-search placeholder="Search by last name" enter-button @search="onSearch" v-model="searchQuery" />
+    </div>
+    <a-list class="demo-loadmore-list" :loading="loading" item-layout="horizontal" :data-source="data">
       <div
-        v-if="!initLoading && !loading"
+        v-if="showLoadingMore"
+        slot="loadMore"
         :style="{ textAlign: 'center', marginTop: '12px', height: '32px', lineHeight: '32px' }">
-        <a-button @click="onLoadMore">loading more</a-button>
+        <a-spin v-if="loadingMore" />
+        <a-button v-else @click="onLoadMore">
+          loading more
+        </a-button>
       </div>
-    </template>
-    <template #renderItem="{ item }">
-      <a-list-item>
-        <template #actions>
-          <a key="list-loadmore-edit">edit</a>
-          <a key="list-loadmore-more">more</a>
-        </template>
-        <a-skeleton avatar :title="false" :loading="!!item.loading" active>
-          <a-list-item-meta
-            description="Ant Design, a design language for background applications, is refined by Ant UED Team">
-            <template #title>
-              <a href="https://www.antdv.com/">{{ item.name.last }}</a>
-            </template>
-            <template #avatar>
-              <a-avatar :src="item.picture.large" />
-            </template>
-          </a-list-item-meta>
-          <div>content</div>
-        </a-skeleton>
+      <a-list-item slot="renderItem" slot-scope="item">
+        <a slot="actions">delete</a>
+        <a slot="actions">edit</a>
+        <a slot="actions">more</a>
+        <a-list-item-meta
+          description="Ant Design, a design language for background applications, is refined by Ant UED Team">
+          <a slot="title" href="https://www.antdv.com/">{{ item.name.last }}</a>
+          <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+        </a-list-item-meta>
       </a-list-item>
-    </template>
-  </a-list>
+    </a-list>
+  </a-card>
 </template>
-<script setup>
-import { onMounted, ref, nextTick } from 'vue'
-const count = 3
-const fakeDataUrl = `https://randomuser.me/api/?results=3&inc=name,gender,email,nat,picture&noinfo`
-const initLoading = ref(true)
-const loading = ref(false)
-const data = ref([])
-const list = ref([])
-onMounted(() => {
-  fetch(fakeDataUrl)
-    .then(res => res.json())
-    .then(res => {
-      console.log('Data loaded on mount:', res.results)
-      initLoading.value = false
-      data.value = res.results
-      list.value = res.results
-    })
-    .catch(error => {
-      console.error('Error during data fetching on mount:', error)
-      initLoading.value = false
-    })
-})
-// eslint-disable-next-line
-const onLoadMore = () => {
-  loading.value = true
-  list.value = data.value.concat(
-    [...new Array(count)].map(() => ({
+<script>
+import axios from 'axios'
+const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat,picture&noinfo'
+
+export default {
+  data () {
+    return {
       loading: true,
-      name: {},
-      picture: {}
-    }))
-  )
-  fetch(fakeDataUrl)
-    .then(res => res.json())
-    .then(res => {
-      console.log('Data loaded on load more:', res.results)
-      const newData = data.value.concat(res.results)
-      loading.value = false
-      data.value = newData
-      list.value = newData
-      nextTick(() => {
-        // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-        // In real scene, you can using public method of react-virtualized:
-        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        window.dispatchEvent(new Event('resize'))
+      loadingMore: false,
+      showLoadingMore: true,
+      data: [],
+      list: []
+    }
+  },
+  mounted () {
+    this.getData().then(res => {
+      this.loading = false
+      this.data = res.data.results
+      this.list = res.data.results
+    })
+  },
+  methods: {
+    getData () {
+      return axios.get(fakeDataUrl)
+    },
+    onLoadMore () {
+      this.loadingMore = true
+      this.list = this.data.concat(
+        [...new Array(3)].map(() => ({ loading: true, name: {}, picture: {} }))
+      )
+      this.getData().then(res => {
+        const newData = this.data.concat(res.data.results)
+        this.data = this.data.concat(res.data.results)
+        this.loadingMore = false
+        this.list = newData
+        this.$nextTick(() => {
+          window.dispatchEvent(new Event('resize'))
+        })
       })
-    })
-    .catch(error => {
-      console.error('Error during data fetching on load more:', error)
-      loading.value = false
-    })
+    }
+  }
 }
 </script>
 <style scoped>

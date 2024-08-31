@@ -37,6 +37,7 @@ export default {
     'menu.account.trigger': '触发报错',
     'menu.account.logout': '退出登录',
     'menu.usermanagement': '用户管理',
-    'menu.usermanagement.page1': '新页面1',
-    'menu.usermanagement.userlist': '用户列表'
+    'menu.usermanagement.userlist': '用户列表',
+    'menu.usermanagement.groupmanagement': '用户组管理',
+    'menu.usermanagement.grouppermission': '用户组权限管理'
 }
